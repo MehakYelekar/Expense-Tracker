@@ -13,13 +13,14 @@ The Expense Tracker Website is a web application designed to help users manage t
 ## Project Structure
 ```
 expense-tracker-website
+├──index.html
 ├── src
 │   ├── css
 │   │   └── styles.css
 │   ├── js
 │   │   ├── app.js
 │   │   └── charts.js
-│   ├── index.html
+│   
 │   ├── about.html
 │   ├── feedback.html
 │   ├── contact.html
