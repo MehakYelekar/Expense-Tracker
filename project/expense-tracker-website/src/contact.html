@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Expense Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .contact-section {
+            background: linear-gradient(120deg, #e0f7fa 60%, #fff 100%);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(76,175,80,0.10);
+            padding: 2.5rem 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.2s;
+            max-width: 600px;
+        }
+        .contact-section h2 {
+            color: #388e3c;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .contact-section .intro {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.2rem;
+            font-size: 1.13rem;
+            line-height: 1.7;
+        }
+        .contact-section p {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .styled-form label {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            display: block;
+            color: #222;
+        }
+        .styled-form input[type="text"],
+        .styled-form input[type="email"] {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 6px;
+            border: 1.5px solid #b2dfdb;
+            font-size: 1rem;
+            margin-bottom: 1.1rem;
+            transition: border 0.2s;
+        }
+        .styled-form input:focus {
+            border: 1.5px solid #4CAF50;
+            outline: none;
+        }
+        .styled-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1.5px solid #b2dfdb;
+            font-size: 1.08rem;
+            margin-bottom: 1.2rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: border 0.2s;
+        }
+        .styled-form textarea:focus {
+            border: 1.5px solid #4CAF50;
+            outline: none;
+        }
+        .btn-primary {
+            width: 60%;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.10);
+        }
+        .btn-primary:hover {
+            background: #388e3c;
+            transform: translateY(-2px) scale(1.02);
+        }
+        .contact-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #388e3c;
+            font-size: 1.05rem;
+        }
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .contact-icons span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.08rem;
+            color: #388e3c;
+        }
+        .contact-icons svg {
+            width: 22px;
+            height: 22px;
+            fill: #4CAF50;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @media (max-width: 700px) {
+            .contact-section {
+                padding: 1.2rem 0.5rem;
+                max-width: 98vw;
+            }
+            .contact-section h2 {
+                font-size: 1.3rem;
+            }
+            .btn-primary {
+                width: 100%;
+            }
+            .contact-icons {
+                flex-direction: column;
+                gap: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-flex">
+            <h1><span style="color:#4CAF50;">Expense</span> Tracker</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="contact-section container">
+            <h2>Get in Touch</h2>
+            <div class="intro">
+                We love hearing from our users! Whether you have a question, suggestion, or need help with your account, our team is here to assist you.<br>
+                Fill out the form below or use the contact details provided. We aim to respond within 24 hours.
+            </div>
+            <div class="contact-icons">
+                <span>
+                    <svg viewBox="0 0 24 24"><path d="M21 8V7l-3 2.29V8c0-3.31-2.69-6-6-6S6 4.69 6 8v1.29L3 7v1l9 6 9-6zm-9 8c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"/></svg>
+                    support@expensetracker.com
+                </span>
+                <span>
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/></svg>
+                    +1 234 567 8901
+                </span>
+            </div>
+            <div class="contact-info">
+                <div><strong>Email:</strong> support@expensetracker.com</div>
+                <div><strong>Phone:</strong> +1 234 567 8901</div>
+            </div>
+            <p>If you have any questions or need support, please fill out the form below:</p>
+            <form class="styled-form" action="#" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Your Name">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Your Email">
+
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required placeholder="Subject">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Type your message"></textarea>
+
+                <div style="text-align:center;">
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Expense Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

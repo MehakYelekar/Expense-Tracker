@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - Expense Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .profile-section {
+            max-width: 420px;
+            margin: 2.5rem auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(76,175,80,0.10);
+            padding: 2.5rem 2rem 2rem 2rem;
+            text-align: center;
+            animation: fadeIn 1s;
+        }
+        .profile-photo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4CAF50;
+            margin-bottom: 1.2rem;
+            background: #e0f7fa;
+        }
+        .profile-section h2 {
+            color: #388e3c;
+            margin-bottom: 0.5rem;
+        }
+        .profile-section label {
+            display: block;
+            margin: 0.7rem 0 0.2rem 0;
+            font-weight: 500;
+        }
+        .profile-section input[type="file"] {
+            margin-bottom: 1.2rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* Compact Transaction Section Styles */
+        .transaction-section {
+            max-width: 400px;
+            margin: 2rem auto;
+            font-size: 0.95rem;
+        }
+        .summary-cards {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .summary-card {
+            flex: 1;
+            padding: 0.7rem 0.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .income-card {
+            background: #43a047;
+            color: #fff;
+        }
+        .expense-card {
+            background: #e53935;
+            color: #fff;
+        }
+        .balance-card {
+            background: #1e88e5;
+            color: #fff;
+        }
+        .transaction-section form {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 0.7rem;
+        }
+        .transaction-section input,
+        .transaction-section select {
+            padding: 0.3rem 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #b2dfdb;
+            font-size: 0.95rem;
+        }
+        .transaction-section button {
+            flex: 1 1 60px;
+            padding: 0.3rem 0.5rem;
+            border-radius: 5px;
+            background: #2196F3;
+            color: #fff;
+            border: none;
+            font-size: 0.95rem;
+        }
+        .transaction-section table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .transaction-section th,
+        .transaction-section td {
+            padding: 0.4rem;
+            text-align: center;
+        }
+        .transaction-section th {
+            background: #e0f7fa;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-flex">
+            <h1><span style="color:#4CAF50;">Expense</span> Tracker</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                     <li><a href="report.html" class="active">Dashboard</a></li>
+                    <li><a href="profile.html" class="active">Profile</a></li>
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="profile-section">
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile Photo" id="profilePhoto" class="profile-photo">
+            <form id="photoForm">
+                <label for="photoUpload">Change Profile Photo</label>
+                <input type="file" id="photoUpload" accept="image/*">
+            </form>
+            <h2 id="profileName">Your Name</h2>
+            <p id="profileEmail">your@email.com</p>
+            <!-- Account Details Section -->
+        
+            <h3 style="color:#388e3c;text-align:left;margin-bottom:1.2rem;">Account Details :</h3>
+            <form id="profileExtraForm">
+                <label for="mobile" style="text-align: left;">Mobile Number :</label>
+                <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" maxlength="10" placeholder="Enter 10-digit mobile number" style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:6px;border:1.5px solid #b2dfdb;" required>
+
+                
+
+                <label for="oldPassword"  style="text-align: left">Old Password :</label>
+                <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter old password" style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:6px;border:1.5px solid #b2dfdb;" required>
+
+                <label for="newPassword"  style="text-align: left">New Password :</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" style="width:100%;padding:0.7rem;margin-bottom:1rem;border-radius:6px;border:1.5px solid #b2dfdb;" required>
+
+                <button type="submit" class="btn-primary" style="width:100%; font-size: large;">Update Details</button>
+            </form>
+        </section>
+        
+
+        <!-- Compact Transaction Section -->
+        <div class="transaction-section" style="max-width:400px;margin:2rem auto;font-size:0.95rem;">
+            <div class="summary-cards" style="display:flex;gap:0.5rem;justify-content:space-between;margin-bottom:1rem;">
+                <div class="summary-card income-card" style="flex:1;background:#43a047;color:#fff;padding:0.7rem 0.5rem;border-radius:8px;text-align:center;">
+                    <div style="font-size:0.95rem;">Total Income</div>
+                    <div id="total-income" style="font-size:1.1rem;font-weight:bold;">₹0.00</div>
+                </div>
+                <div class="summary-card expense-card" style="flex:1;background:#e53935;color:#fff;padding:0.7rem 0.5rem;border-radius:8px;text-align:center;">
+                    <div style="font-size:0.95rem;">Total Expenses</div>
+                    <div id="total-expenses" style="font-size:1.1rem;font-weight:bold;">₹0.00</div>
+                </div>
+                <div class="summary-card balance-card" style="flex:1;background:#1e88e5;color:#fff;padding:0.7rem 0.5rem;border-radius:8px;text-align:center;">
+                    <div style="font-size:0.95rem;">Balance</div>
+                    <div id="balance" style="font-size:1.1rem;font-weight:bold;">₹0.00</div>
+                </div>
+                <div class="summary-card" id="today-spending-card" style="flex:1;background:#ffb300;color:#fff;padding:0.7rem 0.5rem;border-radius:8px;text-align:center;">
+                    <div style="font-size:0.95rem;">Today's Spending</div>
+                    <div id="today-spending" style="font-size:1.1rem;font-weight:bold;">₹0.00</div>
+                </div>
+            </div></div>
+          
+           <!-- Transaction Details Section -->
+<section class="transaction-section" style="max-width:600px;margin:2rem auto 0 auto;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(76,175,80,0.10);padding:2rem;">
+    <h2 style="color:#388e3c;text-align:center;margin-bottom:1.2rem;">Transaction Details</h2>
+    <form id="transactionForm" style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:space-between;margin-bottom:1.5rem;">
+        <input type="text" id="transDesc" placeholder="Description" required style="flex:2 1 120px;padding:0.6rem;border-radius:6px;border:1.5px solid #b2dfdb;">
+        <input type="number" id="transAmount" placeholder="Amount" required style="flex:1 1 80px;padding:0.6rem;border-radius:6px;border:1.5px solid #b2dfdb;">
+        <select id="transType" required style="flex:1 1 80px;padding:0.6rem;border-radius:6px;border:1.5px solid #b2dfdb;">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+        <button type="submit" class="btn-primary" style="flex:1 1 80px; font-size: large;">Add</button>
+    </form>
+            <table id="transactionTable" style="width:100%;border-collapse:collapse;">
+                <thead>
+                    <tr style="background:#e0f7fa;">
+                        <th style="padding:0.7rem;">Date</th>
+                        <th style="padding:0.7rem;">Description</th>
+                        <th style="padding:0.7rem;">Type</th>
+                        <th style="padding:0.7rem;">Amount</th>
+                        <th style="padding:0.7rem;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Transactions will be inserted here -->
+                </tbody>
+            </table>
+            </section>
+       
+
+        <!-- Daily Graph Section -->
+        <div style="max-width:600px;margin:2rem auto;">
+            <canvas id="dailyChart" height="120"></canvas>
+        </div>
+
+        
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Expense Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Load user info from localStorage (if available)
+        const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        document.getElementById('profileName').textContent = user.fullname || 'Your Name';
+        document.getElementById('profileEmail').textContent = user.email || 'your@email.com';
+
+        // Load saved profile photo if available
+        const savedPhoto = localStorage.getItem('profilePhoto');
+        if (savedPhoto) {
+            document.getElementById('profilePhoto').src = savedPhoto;
+        }
+
+        // Handle photo upload
+        document.getElementById('photoUpload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    document.getElementById('profilePhoto').src = evt.target.result;
+                    localStorage.setItem('profilePhoto', evt.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Compact Transaction Section logic using localStorage
+        const form = document.getElementById('transactionForm');
+        const tableBody = document.querySelector('#transactionTable tbody');
+
+        function loadTransactions() {
+            const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            tableBody.innerHTML = '';
+            let income = 0, expense = 0;
+            // Add these two lines:
+            let todaySpending = 0;
+            const today = new Date().toLocaleDateString();
+            transactions.forEach((tr, idx) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="padding:0.3rem;text-align:center;">${tr.date}</td>
+                    <td style="padding:0.3rem;">${tr.desc}</td>
+                    <td style="padding:0.3rem;text-align:center;color:${tr.type==='income'?'#388e3c':'#d32f2f'};font-weight:600;">
+                        ${tr.type.charAt(0).toUpperCase() + tr.type.slice(1)}
+                    </td>
+                    <td style="padding:0.3rem;text-align:right;">${parseFloat(tr.amount).toFixed(2)}</td>
+                    <td style="padding:0.3rem;text-align:center;">
+                        <button onclick="deleteTransaction(${idx})" style="background:#d32f2f;color:#fff;border:none;padding:0.2rem 0.5rem;border-radius:4px;cursor:pointer;font-size:0.9rem;">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+
+                // Calculate totals
+                if (tr.type === 'income') income += parseFloat(tr.amount);
+                else if (tr.type === 'expense') {
+                    expense += parseFloat(tr.amount);
+                    if (tr.date === today) todaySpending += parseFloat(tr.amount);
+                }
+            });
+            // Update summary cards
+            document.getElementById('total-income').textContent = '₹' + income.toFixed(2);
+            document.getElementById('total-expenses').textContent = '₹' + expense.toFixed(2);
+            document.getElementById('balance').textContent = '₹' + (income - expense).toFixed(2);
+            document.getElementById('today-spending').textContent = '₹' + todaySpending.toFixed(2);
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const desc = document.getElementById('transDesc').value.trim();
+            const amount = parseFloat(document.getElementById('transAmount').value);
+            const type = document.getElementById('transType').value;
+            const date = new Date().toLocaleDateString();
+
+            if (!desc || isNaN(amount)) {
+                alert('Please enter valid description and amount.');
+                return;
+            }
+
+            const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            transactions.unshift({ date, desc, type, amount: amount.toFixed(2) });
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            loadTransactions();
+            form.reset();
+        });
+
+        function deleteTransaction(index) {
+            let transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            transactions.splice(index, 1);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            loadTransactions();
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', loadTransactions);
+
+        // Account details logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved details if available
+            const extra = JSON.parse(localStorage.getItem('profileExtra') || '{}');
+            if(extra.mobile) document.getElementById('mobile').value = extra.mobile;
+            if(extra.bank) document.getElementById('bank').value = extra.bank;
+
+            document.getElementById('profileExtraForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Get form values
+                const mobile = document.getElementById('mobile').value.trim();
+                const bank = document.getElementById('bank').value.trim();
+                const oldPassword = document.getElementById('oldPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+
+                // Validate mobile
+                if(!/^\d{10}$/.test(mobile)) {
+                    alert('Please enter a valid 10-digit mobile number.');
+                    return;
+                }
+                // Validate bank
+                if(!bank) {
+                    alert('Please enter your bank account details.');
+                    return;
+                }
+                // Validate password change (simulate with localStorage)
+                const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+                if(!user.password || user.password !== oldPassword) {
+                    alert('Old password is incorrect.');
+                    return;
+                }
+                if(newPassword.length < 6) {
+                    alert('New password must be at least 6 characters.');
+                    return;
+                }
+                // Save new details
+                localStorage.setItem('profileExtra', JSON.stringify({mobile, bank}));
+                user.password = newPassword;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                // Also update in users array if present
+                let users = JSON.parse(localStorage.getItem('users') || '[]');
+                users = users.map(u => u.email === user.email ? {...u, password: newPassword} : u);
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Details updated successfully!');
+                this.reset();
+            });
+        });
+    </script>
+</body>
+</html>

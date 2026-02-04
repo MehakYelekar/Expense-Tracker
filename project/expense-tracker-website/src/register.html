@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Expense Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .register-section {
+            max-width: 400px;
+            margin: 2.5rem auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(76,175,80,0.10);
+            padding: 2.5rem 2rem 2rem 2rem;
+            animation: fadeIn 1s;
+        }
+        .register-section h2 {
+            text-align: center;
+            color: #388e3c;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .register-form label {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        .register-form input {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1.1rem;
+            border: 1px solid #b2dfdb;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.2s;
+        }
+        .register-form input:focus {
+            border: 1.5px solid #4CAF50;
+            outline: none;
+        }
+        .btn-register {
+            width: 100%;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-register:hover {
+            background: #388e3c;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 1rem;
+        }
+        .register-link a {
+            color: #388e3c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-flex">
+            <h1><span style="color:#4CAF50;">Expense</span> Tracker</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="register-section">
+            <h2>Create Account</h2>
+            <form class="register-form" id="registerForm">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" required placeholder="Enter your full name">
+                <label for="fullname">Email:</label>
+                <input type="email" id="email" required placeholder="Enter your email">
+                <label for="fullname">Password:</label>
+                <input type="password" id="password" required placeholder="Create a password">
+                <label for="fullname">Confirm-Password:</label>
+                <input type="password" id="confirm-password" required placeholder="Re-enter your password">
+                <button type="submit" class="btn-register">Register</button>
+            </form>
+            <div class="register-link">
+                Already have an account? <a href="login.html">Login here</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Expense Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="js/register.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('registerForm');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const fullname = document.getElementById('fullname').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                if (users.some(u => u.email === email)) {
+                    alert('Email already registered!');
+                    return;
+                }
+                users.push({ fullname, email, password });
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Registration successful!');
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+</html>

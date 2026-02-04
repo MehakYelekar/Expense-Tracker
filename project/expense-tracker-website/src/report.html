@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spending at a Glance - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(76,175,80,0.10); padding: 2rem; }
+        .dashboard-title { color: #388e3c; text-align: center; margin-bottom: 2rem; }
+        .charts-flex { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+        .chart-box { flex: 1 1 320px; min-width: 320px; background: #f9fbe7; border-radius: 12px; padding: 1.5rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-flex">
+            <h1><span style="color:#4CAF50;">Expense</span> Tracker</h1>
+            <nav>
+                <ul>
+                    <li><a href="report.html" class="active">Dashboard</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="index.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="dashboard-container">
+            <h2 class="dashboard-title">Spending at a Glance</h2>
+            <div class="charts-flex">
+                <div class="chart-box">
+                    <h3 style="text-align:center;">Spending by Description</h3>
+                    <canvas id="pieChart" height="220"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3 style="text-align:center;">Spending Trends</h3>
+                    <canvas id="barChart" height="220"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3 style="text-align:center;">Income vs Expense by Description</h3>
+                    <canvas id="groupedBarChart" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Expense Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+
+        // --- Pie Chart: Expense by Description ---
+        const descExpenseTotals = {};
+        transactions.forEach(tr => {
+            if(tr.type === 'expense') {
+                const desc = tr.desc || 'Other';
+                descExpenseTotals[desc] = (descExpenseTotals[desc] || 0) + parseFloat(tr.amount);
+            }
+        });
+        const pieLabels = Object.entries(descExpenseTotals).map(
+            ([desc, amt]) => `${desc} (₹${amt.toFixed(2)})`
+        );
+        const pieData = Object.values(descExpenseTotals);
+
+        new Chart(document.getElementById('pieChart'), {
+            type: 'pie',
+            data: {
+                labels: pieLabels,
+                datasets: [{
+                    data: pieData,
+                    backgroundColor: ['#4caf50','#ffb300','#e53935','#1e88e5','#8e24aa','#43a047','#fbc02d']
+                }]
+            }
+        });
+
+        // --- Bar Chart: Daily trends by Description (Income & Expense) ---
+        const allDates = [...new Set(transactions.map(tr => tr.date))].sort();
+        const allDescs = [...new Set(transactions.map(tr => tr.desc || 'Other'))];
+
+        // For each description, show daily income and expense
+        const barDatasets = [];
+        ['income', 'expense'].forEach((type, typeIdx) => {
+            allDescs.forEach((desc, idx) => {
+                barDatasets.push({
+                    label: `${desc} (${type})`,
+                    data: allDates.map(date =>
+                        transactions
+                            .filter(tr => tr.type === type && (tr.desc || 'Other') === desc && tr.date === date)
+                            .reduce((sum, tr) => sum + parseFloat(tr.amount), 0)
+                    ),
+                    backgroundColor: type === 'income'
+                        ? '#43a04799'
+                        : '#e5393599',
+                    borderColor: type === 'income'
+                        ? '#43a047'
+                        : '#e53935',
+                    stack: type,
+                    barPercentage: 0.7,
+                    categoryPercentage: 0.7
+                });
+            });
+        });
+
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: allDates,
+                datasets: barDatasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: false }
+                },
+                scales: {
+                    x: { stacked: true },
+                    y: { stacked: true, beginAtZero: true }
+                }
+            }
+        });
+
+        // --- Grouped Bar Chart: Total Income vs Expense by Description ---
+        const incomePerDesc = allDescs.map(desc =>
+            transactions.filter(tr => tr.type === 'income' && (tr.desc || 'Other') === desc)
+                .reduce((sum, tr) => sum + parseFloat(tr.amount), 0)
+        );
+        const expensePerDesc = allDescs.map(desc =>
+            transactions.filter(tr => tr.type === 'expense' && (tr.desc || 'Other') === desc)
+                .reduce((sum, tr) => sum + parseFloat(tr.amount), 0)
+        );
+
+        new Chart(document.getElementById('groupedBarChart'), {
+            type: 'bar',
+            data: {
+                labels: allDescs,
+                datasets: [
+                    {
+                        label: 'Income',
+                        data: incomePerDesc,
+                        backgroundColor: '#43a047'
+                    },
+                    {
+                        label: 'Expense',
+                        data: expensePerDesc,
+                        backgroundColor: '#e53935'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: false }
+                },
+                scales: {
+                    x: { stacked: false },
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
